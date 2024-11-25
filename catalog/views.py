@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import permission_required
 from .forms import RenewBookForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Author
 
 def index(request):
     num_books=Book.objects.all().count()
@@ -112,5 +111,5 @@ class BookUpdate(UpdateView):
     fields = ['title','author','summary','genre']
 
 class BookDelete(DeleteView):
-    model = Author
+    model = Book
     success_url = reverse_lazy('books')

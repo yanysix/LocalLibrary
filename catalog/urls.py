@@ -1,27 +1,22 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
-from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('books/', views.BookListView.as_view(), name='books'),
-]
-
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^books/$', views.BookListView.as_view(), name='books'),
-    url(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),
-    url(r'^authors/$', views.AuthorListView.as_view(), name='author'),
-    url(r'^author/(?P<pk>\d+)$', views.AuthorDetailView.as_view(), name='author-detail'),
-    url(r'^mybooks/$', views.BooksByUserListView.as_view(), name='my-borrowed'),
-    url(r'^allbooks/$', views.AllborrowedBookList.as_view(), name='all-borrowed'),
-    url(r'^book/(?P<pk>[-\w]+)/renew/$', views.renew_book_librarian, name='renew-book-librarian'),
-    url(r'^author/create/$', views.AuthorCreate.as_view(), name='author_create'),
-    url(r'^author/(?P<pk>\d+)/update/$', views.AuthorUpdate.as_view(), name='author_update'),
-    url(r'^author/(?P<pk>\d+)/delete/$', views.AuthorDelete.as_view(), name='author_delete'),
-    url(r'^book/create/$', views.BookCreate.as_view(), name='book_create'),
-    url(r'^book/(?P<pk>\d+)/update/$', views.BookUpdate.as_view(), name='book_update'),
-    url(r'^book/(?P<pk>\d+)/delete/$', views.BookDelete.as_view(), name='book_delete'),
-
+    path('book/<int:pk>/', views.BookDetailView.as_view(), name='book-detail'),
+    path('authors/', views.AuthorListView.as_view(), name='author'),
+    path('author/<int:pk>/', views.AuthorDetailView.as_view(), name='author-detail'),
+    path('mybooks/', views.BooksByUserListView.as_view(), name='my-borrowed'),
+    path('allbooks/', views.AllborrowedBookList.as_view(), name='all-borrowed'),
+    path('book/<int:pk>/renew/', views.renew_book_librarian, name='renew-book-librarian'),
+    path('author/create/', views.AuthorCreate.as_view(), name='author_create'),
+    path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author_update'),
+    path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author_delete'),
+    path('book/create/', views.BookCreate.as_view(), name='book_create'),
+    path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book_update'),
+    path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book_delete'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'), # Добавляем путь для выхода из системы
 ]

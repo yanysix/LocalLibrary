@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from datetime import date
 
 
+
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)")
 
@@ -46,7 +47,6 @@ class BookInstance(models.Model):
             return True
         return False
 
-
     LOAN_STATUS = (
         ('m', 'Maintenance'),
         ('o', 'On loan'),
@@ -63,8 +63,6 @@ class BookInstance(models.Model):
     def __str__(self):
         return '%s (%s)' % (self.id,self.book.title)
 
-
-
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -80,19 +78,3 @@ class Author(models.Model):
     class Meta:
         ordering = ['last_name']
 
-    def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
-
-
-    def __str__(self):
-        return '%s, %s' % (self.last_name, self.first_name)
-
-    class Meta:
-        ordering = ['last_name']
-
-    def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
-
-
-    def __str__(self):
-        return '%s, %s' % (self.last_name, self.first_name)
